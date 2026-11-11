@@ -20,3 +20,12 @@ coverage/
 
 # Local-only Vietnamese progress notes
 PROGRESS.vi.md
+
+# Test and audit reports
+playwright-report/
+test-results/
+.metrics/
+.lighthouseci/
+
+# Vercel
+.vercel/

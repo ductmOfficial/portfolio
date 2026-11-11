@@ -12,6 +12,7 @@ const pages = [
   "/skills",
   "/about",
   "/cv",
+  "/metrics",
 ];
 
 for (const locale of locales)

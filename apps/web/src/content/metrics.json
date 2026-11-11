@@ -1,0 +1,92 @@
+{
+  "source": "local",
+  "measuredAt": "2026-11-11T11:38:09.011Z",
+  "commit": null,
+  "lighthouse": [
+    {
+      "path": "/en",
+      "performance": 98,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 784,
+      "tbtMs": 158,
+      "cls": 0,
+      "scriptKb": 172,
+      "totalKb": 368
+    },
+    {
+      "path": "/en/work/multi-tenant-wms",
+      "performance": 99,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 773,
+      "tbtMs": 112,
+      "cls": 0,
+      "scriptKb": 177,
+      "totalKb": 373
+    },
+    {
+      "path": "/de/experience",
+      "performance": 99,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 762,
+      "tbtMs": 127,
+      "cls": 0,
+      "scriptKb": 171,
+      "totalKb": 360
+    },
+    {
+      "path": "/vi/skills",
+      "performance": 99,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 755,
+      "tbtMs": 114,
+      "cls": 0,
+      "scriptKb": 177,
+      "totalKb": 415
+    },
+    {
+      "path": "/en/cv",
+      "performance": 99,
+      "accessibility": 100,
+      "bestPractices": 100,
+      "seo": 100,
+      "lcpMs": 763,
+      "tbtMs": 127,
+      "cls": 0,
+      "scriptKb": 172,
+      "totalKb": 369
+    }
+  ],
+  "budgets": {
+    "performance": 85,
+    "accessibility": 100,
+    "bestPractices": 95,
+    "seo": 100,
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "tbtMs": 600,
+    "scriptKb": 200,
+    "totalKb": 500
+  },
+  "tests": {
+    "unit": {
+      "total": 20,
+      "passed": 20
+    },
+    "e2e": {
+      "total": 148,
+      "passed": 148
+    },
+    "a11y": {
+      "total": 120,
+      "passed": 120
+    }
+  }
+}

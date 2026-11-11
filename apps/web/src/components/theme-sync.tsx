@@ -13,12 +13,12 @@ export function readTheme(): "light" | "dark" {
 }
 
 /**
- * Switching locale remounts the root layout, and React re-renders <html> without the class
- * the inline script set on first load. Re-apply the stored theme before paint on each mount.
+ * Switching locale remounts the root layout, and React re-renders <html> without the
+ * `data-theme` the inline script set on first load. Re-apply the stored theme before paint on each mount.
  */
 export function ThemeSync() {
   useLayoutEffect(() => {
-    document.documentElement.classList.toggle("dark", readTheme() === "dark");
+    document.documentElement.dataset.theme = readTheme();
   }, []);
   return null;
 }

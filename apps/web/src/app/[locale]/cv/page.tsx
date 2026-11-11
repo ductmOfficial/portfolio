@@ -63,7 +63,7 @@ export default async function CvPage({ params }: LocaleParams) {
           </a>
           <PrintButton
             label={t.cvPage.print}
-            className={`${btn} cursor-pointer border-line text-ink hover:border-ink`}
+            className={`${btn} border-line bg-transparent text-ink hover:border-ink`}
           />
         </div>
       </div>

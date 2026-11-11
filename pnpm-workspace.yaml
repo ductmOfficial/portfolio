@@ -3,3 +3,6 @@ packages:
   - "packages/*"
 
 engineStrict: true
+
+minimumReleaseAgeExclude:
+  - "@ductmofficial/sen-ui@0.5.0"

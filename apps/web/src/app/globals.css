@@ -1,16 +1,61 @@
+/* Sen UI sits above Tailwind's base styles and below its utilities, so a utility class on a
+   Sen UI component still wins. Declared first: the first statement fixes the layer order. */
+@layer theme, base, sen, components, utilities;
+
 @import "tailwindcss";
+@import "@ductmofficial/sen-ui/styles.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Engineering editorial: warm paper, near-black ink, one status-green signal. All text pairs ≥ 4.5:1. */
+/* Engineering editorial: warm paper, near-black ink, one status-green signal. All text pairs ≥ 4.5:1.
+   The shared colors are Sen UI tokens; the short names below are this site's aliases for them.
+   These rules are unlayered, so they override the defaults in the `sen` layer. The theme is
+   always set on <html> by the inline script, so there is no prefers-color-scheme block here. */
+:root,
+[data-theme="light"] {
+  --sen-color-bg: #f6f4ef;
+  --sen-color-surface: #ffffff;
+  --sen-color-surface-hover: #f6f4ef;
+  --sen-color-fg: #16161a;
+  --sen-color-fg-muted: #55544f;
+  --sen-color-border: #55544f;
+  --sen-color-border-subtle: #d9d5cb;
+  --sen-color-accent: #0b6e5a;
+  --sen-color-accent-hover: #095a4a;
+  --sen-color-accent-text: #0b6e5a;
+  --sen-color-on-accent: #f6f4ef;
+  --sen-focus-ring-color: #12a37f;
+}
+[data-theme="dark"] {
+  --sen-color-bg: #141517;
+  --sen-color-surface: #1b1d20;
+  --sen-color-surface-hover: #141517;
+  --sen-color-fg: #eceae4;
+  --sen-color-fg-muted: #a3a19a;
+  --sen-color-border: #a3a19a;
+  --sen-color-border-subtle: #2f3236;
+  --sen-color-accent: #3dd6ac;
+  --sen-color-accent-hover: #2fbf98;
+  --sen-color-accent-text: #3dd6ac;
+  --sen-color-on-accent: #141517;
+  --sen-focus-ring-color: #3dd6ac;
+}
+/* Square corners and a 3px focus offset everywhere, Sen UI components included. */
 :root {
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --ink: #16161a;
-  --muted: #55544f;
-  --line: #d9d5cb;
+  --sen-radius-sm: 0;
+  --sen-radius-md: 0;
+  --sen-radius-lg: 0;
+  --sen-focus-ring-offset: 3px;
+}
+
+:root {
+  --bg: var(--sen-color-bg);
+  --surface: var(--sen-color-surface);
+  --ink: var(--sen-color-fg);
+  --muted: var(--sen-color-fg-muted);
+  --line: var(--sen-color-border-subtle);
+  --accent: var(--sen-color-accent);
   --grid: rgb(22 22 26 / 0.06);
-  --accent: #0b6e5a;
   --signal: #12a37f;
   --board: #16161a;
   --board-ink: #b9b6ae;
@@ -19,14 +64,8 @@
   --btn-ink: #f6f4ef;
   color-scheme: light;
 }
-.dark {
-  --bg: #141517;
-  --surface: #1b1d20;
-  --ink: #eceae4;
-  --muted: #a3a19a;
-  --line: #2f3236;
+[data-theme="dark"] {
   --grid: rgb(236 234 228 / 0.05);
-  --accent: #3dd6ac;
   --signal: #3dd6ac;
   --board: #0d0e10;
   --board-ink: #a3a19a;

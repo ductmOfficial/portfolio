@@ -66,7 +66,7 @@ jobs:
       - name: Lint, typecheck, test, build
         run: pnpm turbo run lint typecheck test build
 
-  # Runs the built site in Chromium: Playwright with axe and the CV PDF check.
+  # Runs the built site in Chromium: Playwright with axe, the CV PDF check and Lighthouse budgets.
   browser:
     name: Browser
     runs-on: ubuntu-latest
@@ -98,16 +98,36 @@ jobs:
       - name: Build
         run: pnpm turbo run build
 
+      - name: Unit test report
+        run: pnpm --filter web test:json
+
       - name: End-to-end and accessibility
         run: pnpm --filter web e2e
 
       - name: CV PDFs match the site
         run: pnpm --filter web cv:check
 
-      - name: Upload the report on failure
+      - name: Lighthouse budgets
+        run: pnpm --filter web lighthouse
+
+      - name: Upload reports on failure
         if: failure()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reports
-          path: apps/web/playwright-report
+          path: |
+            apps/web/playwright-report
+            apps/web/.lighthouseci
           retention-days: 7
+
+      # Read by `pnpm metrics:pull` to update the /metrics page.
+      - name: Keep measurements
+        if: github.event_name == 'push'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: measurements
+          path: |
+            apps/web/.metrics
+            apps/web/.lighthouseci
+          include-hidden-files: true
+          retention-days: 30

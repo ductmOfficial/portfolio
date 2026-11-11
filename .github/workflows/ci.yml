@@ -90,10 +90,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Not cached: restoring the browser takes about as long as downloading it, and the system
-      # dependencies must be installed anyway.
-      - name: Install Playwright Chromium
-        run: pnpm --filter web exec playwright install --with-deps chromium
+      # The runner image ships Google Chrome. Using it skips the browser download and the system
+      # packages from apt, which failed whenever the Ubuntu mirror could not be resolved.
+      # Playwright, the CV export and Lighthouse all read CHROME_PATH.
+      - name: Use the runner's Chrome
+        run: |
+          chrome="$(command -v google-chrome || command -v google-chrome-stable || true)"
+          if [ -n "$chrome" ]; then
+            echo "CHROME_PATH=$chrome" >> "$GITHUB_ENV"
+            "$chrome" --version
+          else
+            echo "No Chrome on the runner; installing Playwright's Chromium."
+            pnpm --filter web exec playwright install --with-deps chromium
+          fi
 
       - name: Build
         run: pnpm turbo run build

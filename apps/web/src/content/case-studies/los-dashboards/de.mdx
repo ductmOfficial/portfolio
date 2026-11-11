@@ -1,0 +1,50 @@
+## Kontext
+
+Heureka Business Solutions, 2014 gegründet, entwickelt KI-gestützte Software zur Intralogistik-Optimierung und Lagerverwaltung. Das Hauptprodukt ist LOS, eine webbasierte Logistikmanagement-Plattform. Ich bin im Oktober 2021 eingestiegen und seitdem der aktivste Entwickler: rund 6.500 Commits in fünf Jahren und über 40 Module für Lager-, Transport- und Finanzprozesse, umgesetzt mit React, Redux Toolkit, React Query und MUI.
+
+## Eine Plattform, viele Standorte
+
+LOS läuft für Kunden wie Siemens (Nürnberg und Singapur), Loxxess, Bewital und ZooRoyal. Ich habe Standortinstanzen in **Deutschland, Singapur, Mexiko und Brasilien** ausgerollt, jeweils mit eigenen KPIs, Dashboards und Lagerlayouts.
+
+## Ein Widget-Framework statt Einzel-Dashboards
+
+Kern dieses Ansatzes ist ein konfigurierbares Widget- und Dashboard-Framework. Jedes Widget bietet:
+
+- **benutzerbezogen gespeicherte Einstellungen**, sodass jede Person ihre eigene Ansicht eines Dashboards behält;
+- **Datumsfilter**, **Aggregationen** und **Export**;
+- **Plausibilitätsprüfungen**, die unplausible Werte markieren.
+
+Dasselbe Framework treibt die Echtzeit-, Tages- und Analyse-Dashboards an allen Kundenstandorten an.
+
+<WidgetFramework
+  label="Diagramm: Standortkonfiguration, Benutzereinstellungen und Zeitraum fließen in ein Widget-Framework, das Echtzeit-, Tages- und Analyse-Dashboards darstellt."
+  caption="Eine Pipeline, drei Dashboard-Modi, im Einsatz an allen Kundenstandorten."
+/>
+
+## Das Lager zeichnen
+
+Dashboards brauchen einen Grundriss, auf den sie sich beziehen. Ich habe einen **Layout-Builder** und einen **Heatmap-Builder** für Lagergrundrisse entwickelt, mit Bereichsvorlagen, Gangkonfiguration und Zoom/Pan, und damit individuelle Layouts für Standorte von Siemens und Loxxess umgesetzt.
+
+## Den Betrieb überwachen
+
+Neben den Dashboards habe ich die operativen und kaufmännischen Module entwickelt, mit denen täglich gearbeitet wird:
+
+- **Control-Tower**-Sendungsverfolgung mit SLA-Zeiten;
+- **Packing Monitor** und **Trucks on Site**;
+- **digitale Abrechnung & Preisblätter** und ein **Ticketsystem**;
+- Leaflet-Kartenansichten, ApexCharts-Dashboards und ein Vollbild-**Diashow-Modus** für Displays in der Halle.
+
+## Zugriff und Sprachen
+
+Die Anmeldung läuft über **Azure-AD-SSO (MSAL)**. Rollenbasierte Berechtigungen gelten einheitlich für Navigation, Seiten und einzelne Aktionen. Übersetzungen kommen aus der API und werden mit i18next dargestellt.
+
+## Eine fünf Jahre alte Codebasis schnell halten
+
+| Bereich        | Änderung                                           |
+| -------------- | -------------------------------------------------- |
+| Laden          | Routen und Dialoge nachgeladen; Bundle verkleinert |
+| Große Tabellen | Virtualisiert mit react-window und react-virtuoso  |
+| Build          | Auf SWC umgestellt                                 |
+| Server-State   | Von SWR zu React Query, neben Zustand              |
+
+> Kundencode und Oberflächen bleiben vertraulich. Das Diagramm ist vereinfacht und enthält keinen proprietären Code.

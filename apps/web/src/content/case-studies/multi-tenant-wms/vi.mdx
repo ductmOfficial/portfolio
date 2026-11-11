@@ -1,0 +1,59 @@
+## Bối cảnh
+
+BBX Intra là công ty tư vấn và phần mềm của Đức về intralogistics và tối ưu chuỗi cung ứng. Sản phẩm của họ là nền tảng quản lý kho và logistics vận hành cho nhiều kho và được bán dưới nhiều thương hiệu. Tháng 2/2026, tôi bắt đầu xây front-end từ một repository trống và là người đóng góp chính từ đó đến nay, với gần 600 commit.
+
+Công nghệ: React 19, TypeScript, Vite, MUI, TanStack Query, React Router v7 và ECharts.
+
+## Một front-end, nhiều kho
+
+Mỗi kho có API host, chỉ tiêu và người dùng riêng. Thay vì build riêng cho từng khách hàng, front-end xác định mọi thứ lúc runtime:
+
+- **API host theo từng kho.** Kho trong URL quyết định lúc runtime ứng dụng gọi backend nào.
+- **Routing theo kho.** Người dùng chuyển giữa các kho một cách liền mạch, ngay trong ứng dụng đang chạy.
+- **Một route map duy nhất.** Route, menu điều hướng và phân quyền đều suy ra từ cùng một map. Trang mà một vai trò không được mở sẽ không có route và không hiện trong menu; quy tắc này cũng áp dụng cho từng component.
+
+<TenantRouting
+  label="Sơ đồ: kho trong URL chọn API host; một route map điều khiển router, điều hướng và phân quyền."
+  caption="Mọi thứ thay đổi theo tenant được xác định lúc runtime từ hai đầu vào: URL và route map."
+/>
+
+## Dashboard để vận hành kho
+
+Tôi đã xây hơn mười dashboard vận hành và báo cáo: Live Ops, SLA & Service Quality, Productivity, Picking Tour Cockpit, Storage Occupancy và Inbound/Outbound. Chúng dùng chung một framework widget KPI có:
+
+- tổng hợp theo kỳ, dựa trên **lịch ngày làm việc** và **chỉ tiêu riêng của từng kho**;
+- **drill-down** từ biểu đồ xuống các đơn hàng phía sau, và từ đơn hàng xuống từng dòng đơn;
+- xuất dữ liệu, và trạng thái dialog lưu trên URL để chia sẻ một góc nhìn đã lọc bằng đường link.
+
+## Những phần ít thấy hơn
+
+- **Xác thực.** Refresh token chạy qua Axios interceptor với hàng đợi: khi nhiều request lỗi cùng lúc, chúng chờ một lần refresh duy nhất thay vì mỗi request tự refresh. Hết hạn phiên được xử lý rõ ràng.
+- **Import hàng loạt.** Công cụ import CSV và XLSX với ánh xạ dữ liệu tuỳ chỉnh và hiển thị tiến trình tải lên.
+- **White-label.** Mỗi thương hiệu là một bộ CSS variables. Bản dịch tiếng Anh và tiếng Đức được tải lười, và một bước kiểm tra trong CI sẽ làm build thất bại khi các key dịch bị lệch nhau.
+
+## Đo thật, không ước lượng: −549 kB
+
+ECharts trước đó được import toàn bộ. Tôi chuyển sang import chọn lọc, tree-shake được, rồi build commit đó và commit cha để so sánh. Code splitting theo route đã có từ commit đầu tiên, nên đây là phần tiết kiệm thêm trên nền đó.
+
+<BundleChart
+  locale="vi-VN"
+  label="Biểu đồ cột: entry chunk 2.913,93 kB trước và 2.364,45 kB sau khi import ECharts có chọn lọc."
+  caption="Entry chunk, kích thước chưa nén, đo ngày 22/10/2026. Khi nén gzip, mức giảm là 180 kB."
+  bars={[
+    { label: "Trước", kb: 2913.93 },
+    { label: "Sau", kb: 2364.45 },
+  ]}
+/>
+
+| Chỉ số                 | Trước       | Sau         | Thay đổi |
+| ---------------------- | ----------- | ----------- | -------- |
+| Entry chunk (chưa nén) | 2.913,93 kB | 2.364,45 kB | −549 kB  |
+| Entry chunk (gzip)     |             |             | −180 kB  |
+
+## Giữ cho dễ bảo trì
+
+- Viết lại bảng dữ liệu ảo hoá tự xây xoay quanh cột có kiểu, không dùng thư viện grid bên thứ ba.
+- Dẫn dắt việc chuyển từ JavaScript sang TypeScript: khoảng 75% mã nguồn (75,6% số dòng, 73,9% số file) giờ là TypeScript.
+- Áp đặt kiến trúc phân lớp bằng quy tắc ESLint, để linter báo lỗi khi có import vượt lớp.
+
+> Mã nguồn và giao diện của khách hàng được giữ kín. Sơ đồ đã được đơn giản hoá và không chứa mã độc quyền.

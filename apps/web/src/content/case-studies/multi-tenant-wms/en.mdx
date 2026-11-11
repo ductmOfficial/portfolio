@@ -1,0 +1,59 @@
+## Context
+
+BBX Intra is a German consulting and software company for intralogistics and supply chain optimisation. Its product is a warehouse and logistics management platform that runs for several warehouses and is sold under several brands. In February 2026 I started its front-end from an empty repository and have been its main contributor since, with close to 600 commits.
+
+The stack: React 19, TypeScript, Vite, MUI, TanStack Query, React Router v7 and ECharts.
+
+## One front-end, many warehouses
+
+Each warehouse has its own API host, its own targets and its own users. Instead of a build per customer, the front-end resolves everything at runtime:
+
+- **API host per warehouse.** The warehouse in the URL decides, at runtime, which backend the app talks to.
+- **Warehouse-aware routing.** Users switch between warehouses seamlessly, inside one running app.
+- **One route map.** Routes, the navigation menu and access control are all derived from a single map. A page that a role cannot open is neither routed nor shown in the menu, and the same rule is applied to individual components.
+
+<TenantRouting
+  label="Diagram: the warehouse in the URL selects the API host; one route map drives the router, the navigation and access control."
+  caption="Everything that varies by tenant is resolved at runtime from two inputs: the URL and the route map."
+/>
+
+## Dashboards people run the floor with
+
+I delivered more than ten operational and reporting dashboards: Live Ops, SLA & Service Quality, Productivity, Picking Tour Cockpit, Storage Occupancy, and Inbound/Outbound. They share a reusable KPI widget framework that handles:
+
+- aggregation by period, on top of **working-day calendars** and **warehouse-specific targets**;
+- **drill-down** from a chart to the orders behind it, and from an order to its order lines;
+- export, and dialog state kept in the URL, so a filtered view can be shared as a link.
+
+## The less visible parts
+
+- **Authentication.** Token refresh runs through Axios interceptors with a queue: when several requests fail at once, they wait for a single refresh instead of each starting their own. Session expiry is handled explicitly.
+- **Bulk import.** CSV and XLSX import tools with configurable data mapping and upload progress.
+- **White-labelling.** Each brand is a set of CSS variables. English and German translations load lazily, and a CI check fails the build when translation keys go out of sync.
+
+## Measured, not estimated: −549 kB
+
+ECharts was imported as a whole. I switched it to selective, tree-shaken imports, then built that commit and its parent to compare. Route-level code splitting was already in place from the first commit, so this is the saving on top of it.
+
+<BundleChart
+  locale="en-US"
+  label="Bar chart: entry chunk 2,913.93 kB before and 2,364.45 kB after selective ECharts imports."
+  caption="Entry chunk, raw size, measured on 22 October 2026. Gzipped, the saving is 180 kB."
+  bars={[
+    { label: "Before", kb: 2913.93 },
+    { label: "After", kb: 2364.45 },
+  ]}
+/>
+
+| Measure            | Before      | After       | Change  |
+| ------------------ | ----------- | ----------- | ------- |
+| Entry chunk (raw)  | 2,913.93 kB | 2,364.45 kB | −549 kB |
+| Entry chunk (gzip) |             |             | −180 kB |
+
+## Keeping it maintainable
+
+- Rewrote the in-house virtualised data table around typed columns. It uses no third-party grid library.
+- Drove the move from JavaScript to TypeScript: about 75% of the code (75.6% of lines, 73.9% of files) is now TypeScript.
+- Enforced a layered architecture with ESLint rules, so imports that cross layers are flagged by the linter.
+
+> Client code and screens stay private. The diagrams are simplified and contain no proprietary code.

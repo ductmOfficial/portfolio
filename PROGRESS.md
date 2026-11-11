@@ -1,61 +1,55 @@
 # Progress
 
-> Last updated: 2026-11-10
+> Last updated: 2026-11-11
 >
 > Legend: ✅ done · 🔄 in progress · ⬜ not started
 
-A TypeScript monorepo template that every portfolio project starts from. This log records each step, the decisions behind it and the issues met along the way.
+The portfolio site, built on the `ductran-starter` template and styled with Sen UI. This log records each step, the decisions behind it and the issues met along the way.
 
 ## Steps
 
-| #   | Step                                                                             | Branch                 | Status |
-| --- | -------------------------------------------------------------------------------- | ---------------------- | ------ |
-| 1   | pnpm workspace, Turborepo, shared tsconfig, MIT license                          | `main`                 | ✅     |
-| 2   | Shared ESLint and Prettier configs                                               | `main`                 | ✅     |
-| 3   | CI on pull requests and `main`, `Protect main` ruleset                           | `main`                 | ✅     |
-| 4   | `@repo/ui` sample with Vite library mode, Vitest and Testing Library             | `feat/ui-package`      | ✅     |
-| 5   | Conventional Commits (commitlint + husky), PR title re-check, PR and issue forms | `chore/conventions`    | ✅     |
-| 6   | Local PostgreSQL 18 with Docker Compose and `db:*` scripts                       | `chore/local-postgres` | ✅     |
-| 7   | Next.js presets                                                                  | `feat/next-presets`    | ✅     |
-| 8   | Vite app presets                                                                 | `feat/vite-presets`    | ✅     |
-| 9   | Dependabot for npm and GitHub Actions                                            | `chore/dependabot`     | ✅     |
-| 10  | README and this progress log                                                     | `docs/readme`          | ✅     |
+| #   | Step                                                                  | Branch              | Status |
+| --- | --------------------------------------------------------------------- | ------------------- | ------ |
+| 1   | Repository from the `ductran-starter` template                        | `main`              | ✅     |
+| 2   | Portfolio workspace: drop the sample package and the database         | `chore/setup`       | ✅     |
+| 3   | Site with the typed CV model, locales and the main pages              | `feat/site`         | ✅     |
+| 4   | Case studies in MDX with themed SVG diagrams                          | `feat/case-studies` | ✅     |
+| 5   | Sitemap, robots and share images                                      | `feat/seo`          | ✅     |
+| 6   | Printable CV with committed PDFs and a text check                     | `feat/cv`           | ✅     |
+| 7   | Playwright and axe tests, `Browser` job in CI                         | `test/e2e`          | ✅     |
+| 8   | Lighthouse budgets and the metrics page                               | `feat/metrics`      | ✅     |
+| 9   | Sen UI tokens, `data-theme` and Sen UI buttons, with no visual change | `feat/sen-ui`       | ✅     |
+| 10  | README, content license and this progress log                         | `docs/readme`       | ✅     |
 
-Steps 1–3 were pushed straight to `main`, then the ruleset was applied; every later step is a pull request with a green `Verify` check, merged with rebase.
+Each step is a pull request with green `Verify` and `Browser` checks (`Browser` from step 7), merged with rebase.
 
 ## Decisions
 
-| Decision                                                            | Reason                                                                                                                               |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| Node 24 LTS                                                         | Node 26 is not LTS yet. Upgrading later only touches `.nvmrc` and `engines`                                                          |
-| TypeScript 6.0.x instead of 7.0                                     | typescript-eslint only supports `<6.1.0`, and TS 7 has no stable programmatic API yet                                                |
-| No Corepack                                                         | Node 25+ no longer bundles Corepack                                                                                                  |
-| Internal package scope `@repo/*`                                    | Turborepo convention; keeps the repo usable as a template                                                                            |
-| `@eslint-react` instead of `eslint-plugin-react`                    | `eslint-plugin-react` does not support ESLint 10 yet                                                                                 |
-| React ESLint preset `strict-type-checked`                           | Matches the strict TypeScript preset; `recommended` misses rules such as `dom-no-missing-button-type`                                |
-| No `eslint-plugin-react-hooks`                                      | `@eslint-react` already ships the hooks rules; using both reports every issue twice                                                  |
-| Prettier `printWidth: 100`, other options default                   | The default of 80 wraps JSX too aggressively                                                                                         |
-| Conventions enforced twice: husky hook locally and commitlint in CI | Hooks can be skipped (`--no-verify`) or missing on a fresh clone; CI cannot                                                          |
-| PostgreSQL `postgres:18` (Debian), port bound to `127.0.0.1`        | Latest stable major; Debian matches typical glibc production hosts; the database is not exposed to the local network                 |
-| GitHub Actions pinned to commit SHAs (with a `# vX.Y.Z` comment)    | A tag can be moved to point at different code; a SHA cannot. Dependabot keeps the SHAs current                                       |
-| MIT license                                                         | A public repo without a license is all rights reserved; MIT lets others reuse the template with attribution                          |
-| `@repo/ui` built with Vite library mode, `tsc` for declarations     | Vite empties `dist/` before each build, so stale files from renamed sources never ship; one module per file keeps apps tree-shakable |
-| `@next/eslint-plugin-next` directly, not `eslint-config-next`       | The plugins bundled with `eslint-config-next` do not support ESLint 10 yet                                                           |
-| commitlint ignores Dependabot commits                               | Their bodies carry release notes with lines over the 100-character limit; headers already follow the configured prefixes             |
-| No Co-Authored-By trailer in commits                                | Maintainer's preference                                                                                                              |
-| Dependabot ignores TypeScript ≥6.1 and @types/node majors           | typescript-eslint supports TypeScript <6.1.0; Node types must match the Node 24 runtime                                              |
+| Decision                                                                        | Reason                                                                                                                               |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| The site lives in `apps/web` of the starter monorepo                            | Shared ESLint, Prettier and TypeScript presets, the same CI and conventions as every other project                                   |
+| Static generation for every page, `proxy.ts` only for the locale redirect       | Fast first load and simple hosting; `/` still picks the visitor's language                                                           |
+| CV content typed and validated with Zod, with `verified` and `target` modes     | One source for the site, the PDFs and the roadmap; production can never show a planned item                                          |
+| Sen UI tokens overridden in unlayered CSS, site colors as aliases of the tokens | The library stays neutral; the site's look is one block of token values, and Sen UI components pick it up                            |
+| Layer order `theme, base, sen, components, utilities`                           | Sen UI sits above Tailwind's reset and below its utilities, so a utility class on a Sen UI component wins                            |
+| `data-theme` on `<html>`, always set by an inline script                        | Sen UI and the Tailwind `dark:` variant read the same attribute; setting it explicitly avoids a mismatch with `prefers-color-scheme` |
+| Language switcher stays a list of links                                         | Moving between pages is navigation, not a form value; a `Select` would also add about 57 kB gzipped to every page                    |
+| Visual check by full-page screenshots before and after Sen UI                   | "No visual change" is checked pixel by pixel on 10 pages, light and dark, desktop and mobile                                         |
+| End-to-end, CV and Lighthouse checks in a separate `Browser` job                | Runs in parallel with `Verify`; both are required by the ruleset                                                                     |
+| Metrics updated through a pull request (`metrics:pull`), not a bot commit       | `main` only accepts pull requests; the numbers still come from a green CI run on `main`                                              |
+| Fonts self-hosted with `font-display: optional` and preloads                    | No third-party request and no layout shift from a late font swap                                                                     |
+| Code under MIT, personal content all rights reserved                            | Others may reuse the code; the CV and case studies describe one real person                                                          |
+| No Co-Authored-By trailer in commits                                            | Maintainer's preference                                                                                                              |
 
 ## Follow-ups
 
-- [ ] Upgrade to **Node 26** once it becomes LTS
-- [ ] Upgrade to **TypeScript 7** once typescript-eslint supports it
-- [ ] Extract the shared setup steps (checkout, pnpm, Node, install) of the workflows into a composite action
+- [ ] Run `metrics:pull` after the first green CI run on `main`, so `/metrics` shows CI numbers
+- [ ] Promote the Sen UI project in the CV from `target` to verified, with its real numbers
+- [ ] Case study links for the movie app once it is live under its new name
 
 ## Issue log
 
-- **2026-10-22:** the two React plugins reported every hooks rule twice. Fixed by dropping `eslint-plugin-react-hooks`.
-- **2026-10-22:** the `recommended-type-checked` React preset did not flag a `<button>` without `type`. Switched to `strict-type-checked`.
-- **2026-10-22:** Turbo warned that `test` produced no files for `outputs: ["coverage/**"]`. Set `test` outputs to `[]`; coverage has its own task.
-- **2026-10-23:** `git@github.com` authenticates as a different default account, not the repo owner `ductmOfficial`. The remote uses the SSH alias `github-ductmofficial`.
-- **2026-10-23:** pushing the head of an open PR straight to `main` was accepted as a command-line merge, because the PR already met every rule. A commit outside any PR is rejected (`Changes must be made through a pull request`).
-- **2026-11-09:** Dependabot commit bodies would fail the same rule. Added an `ignores` entry for commits signed off by `dependabot[bot]`.
+- **2026-11-11:** the starter's `nextjs` preset sets `types: ["node"]`, which also hides `@types/mdx`; imports of `.mdx` files failed typecheck until the app listed `"mdx"` in its own `types`.
+- **2026-11-11:** the shared ESLint preset (`strict-type-checked`) reported 76 issues that the previous linter allowed: Node globals in scripts, non-null assertions, numbers in template literals, `any` in a test helper, conditions on values that cannot be null. Fixed in code; the remaining disables (`dangerouslySetInnerHTML` for the theme script and JSON-LD, index keys for fixed lists) carry a reason.
+- **2026-11-11:** Prettier rewrote `{a} · {b}` across two lines as `{a} ·{" "}`, which splits one text node into two. Chromium then shapes the text differently and the CV page moved by a few pixels. Separators are written as one string (`{" · "}`) instead.
+- **2026-11-11:** the CI job that committed metrics to `main` would be rejected by the ruleset. Metrics now come in through a pull request.

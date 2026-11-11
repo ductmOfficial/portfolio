@@ -44,7 +44,7 @@ const criticalFonts = (locale: string) => [
 ];
 
 /** Runs before paint: applies the stored or system theme, and marks JS as available for entrance motion. */
-const themeScript = `document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch(e){}`;
+const themeScript = `document.documentElement.classList.add('js');try{var t=localStorage.getItem('theme');var d=t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches)}catch(e){d=false}document.documentElement.dataset.theme=d?'dark':'light'`;
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale, t, cv } = await pageContext(params);

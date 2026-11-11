@@ -1,20 +1,24 @@
 "use client";
 
+import { Button } from "@ductmofficial/sen-ui";
+
 export function ThemeToggle({ label }: { label: string }) {
   const toggle = () => {
-    const dark = document.documentElement.classList.toggle("dark");
+    const root = document.documentElement;
+    const theme = root.dataset.theme === "dark" ? "light" : "dark";
+    root.dataset.theme = theme;
     try {
-      localStorage.setItem("theme", dark ? "dark" : "light");
+      localStorage.setItem("theme", theme);
     } catch {
       /* storage blocked: the toggle still works for this visit */
     }
   };
   return (
-    <button
-      type="button"
+    <Button
+      variant="secondary"
       onClick={toggle}
       aria-label={label}
-      className="inline-flex size-11 cursor-pointer items-center justify-center border border-line text-ink hover:border-ink"
+      className="size-11 border-line bg-transparent p-0 text-ink hover:border-ink"
     >
       <svg
         width="18"
@@ -28,6 +32,6 @@ export function ThemeToggle({ label }: { label: string }) {
         <circle cx="12" cy="12" r="8" />
         <path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" />
       </svg>
-    </button>
+    </Button>
   );
 }

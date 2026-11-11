@@ -24,10 +24,7 @@ for (const locale of locales)
         await page.goto(`/${locale}${path}`);
         await expect(page.locator("html")).toHaveAttribute("lang", locale);
         for (const theme of ["light", "dark"]) {
-          await page.evaluate(
-            (t) => document.documentElement.classList.toggle("dark", t === "dark"),
-            theme,
-          );
+          await page.evaluate((t) => (document.documentElement.dataset.theme = t), theme);
           const { violations } = await new AxeBuilder({ page })
             .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
             .analyze();
@@ -84,17 +81,18 @@ test("the nav marks the current page", async ({ page }) => {
 
 test("keeps the chosen theme when switching language and page", async ({ page }) => {
   await page.goto("/en");
-  const dark = await page.evaluate(() => document.documentElement.classList.contains("dark"));
+  const before = await page.locator("html").getAttribute("data-theme");
+  const after = before === "dark" ? "light" : "dark";
   await page.getByRole("button", { name: /theme/ }).click();
   await page.getByRole("link", { name: /Deutsch/ }).click();
   await expect(page).toHaveURL(/\/de$/);
-  await expect(page.locator("html")).toHaveClass(dark ? /^(?!.*dark)/ : /dark/);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", after);
   await page
     .getByRole("navigation", { name: "Hauptnavigation" })
     .getByRole("link", { name: "Erfahrung" })
     .click();
   await expect(page).toHaveURL(/\/de\/experience$/);
-  await expect(page.locator("html")).toHaveClass(dark ? /^(?!.*dark)/ : /dark/);
+  await expect(page.locator("html")).toHaveAttribute("data-theme", after);
 });
 
 test("footer sits at the bottom of the viewport on short pages", async ({ page }) => {

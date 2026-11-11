@@ -22,6 +22,7 @@
     "metrics:pull": "node scripts/metrics-pull.mjs"
   },
   "dependencies": {
+    "@ductmofficial/sen-ui": "^0.5.0",
     "@fontsource/ibm-plex-mono": "^5.3.0",
     "@fontsource/ibm-plex-sans": "^5.3.0",
     "@mdx-js/loader": "^3.1.1",

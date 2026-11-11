@@ -1,0 +1,50 @@
+## Context
+
+Heureka Business Solutions, founded in 2014, builds AI-driven intralogistics optimisation and warehouse management software. Its main product is LOS, a logistics management web platform. I joined in October 2021 and have been its top contributor since: about 6,500 commits over five years and more than 40 modules for warehouse, transport and finance operations, built with React, Redux Toolkit, React Query and MUI.
+
+## One platform, many sites
+
+LOS runs for clients including Siemens (Nuremberg and Singapore), Loxxess, Bewital and ZooRoyal. I rolled out site instances in **Germany, Singapore, Mexico and Brazil**, each with its own KPIs, dashboards and warehouse layout.
+
+## A widget framework instead of one-off dashboards
+
+The core of that approach is a configurable widget and dashboard framework. Each widget gets:
+
+- **per-user saved settings**, so each user keeps their own view of a dashboard;
+- **date-range filters**, **aggregations** and **export**;
+- **sanity checks** that flag implausible values.
+
+The same framework powers the real-time, daily and analysis dashboards across all client sites.
+
+<WidgetFramework
+  label="Diagram: site configuration, user settings and date range feed one widget framework, which renders real-time, daily and analysis dashboards."
+  caption="One pipeline, three dashboard modes, used across all client sites."
+/>
+
+## Drawing the warehouse
+
+Dashboards need a floor plan to point at. I built a **Layout Builder** and a **Heatmap Builder** for warehouse floor plans, with area templates, aisle configuration and zoom/pan, and used them to deliver custom layouts for Siemens and Loxxess sites.
+
+## Monitoring the operation
+
+Beyond dashboards, I built the operational and business modules people work in every day:
+
+- **Control Tower** shipment tracking with SLA timing;
+- **Packing Monitor** and **Trucks on Site**;
+- **Digital Billing & Price Sheets** and a **Ticketing System**;
+- Leaflet map views, ApexCharts dashboards, and a full-screen **slideshow mode** for displays on the shop floor.
+
+## Access and languages
+
+Sign-in uses **Azure AD SSO (MSAL)**. Role-based permissions apply consistently to navigation, pages and individual actions. Translations come from the API and are rendered with i18next.
+
+## Keeping a five-year codebase fast
+
+| Area         | What changed                                        |
+| ------------ | --------------------------------------------------- |
+| Loading      | Lazy-loaded routes and dialogs; reduced bundle size |
+| Large tables | Virtualised with react-window and react-virtuoso    |
+| Build        | Migrated to SWC                                     |
+| Server state | Moved from SWR to React Query, alongside Zustand    |
+
+> Client code and screens stay private. The diagram is simplified and contains no proprietary code.

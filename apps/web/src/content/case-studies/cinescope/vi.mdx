@@ -1,0 +1,86 @@
+## Vì sao làm dự án này
+
+CineScope là dự án cá nhân của tôi: ứng dụng khám phá phim và series dựa trên TMDB API, có tiếng Việt và tiếng Anh. Đây là nơi tôi thử nghiệm ý tưởng ngoài công việc với khách hàng, nhưng vẫn giữ cùng tiêu chuẩn: có kiểu dữ liệu từ đầu đến cuối, có test và được CI kiểm tra mỗi lần push.
+
+Công nghệ: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Tailwind CSS và Cloudflare Worker.
+
+## Ứng dụng làm được gì
+
+- **Trang chủ kiểu dịch vụ streaming.** Banner, Top 10, các hàng gợi ý theo gu, theo chủ đề và theo dịp (cuối tuần, Tết và các ngày lễ khác), và "Xem tiếp" nhảy thẳng tới tập kế tiếp.
+- **Hồ sơ phim, series và người** trình bày như mạng xã hội: dòng thời gian, video với trình phát thu nhỏ khi cuộn, ảnh, diễn viên, mùa và tập, và nơi xem.
+- **Khám phá và tìm kiếm** với bộ lọc lưu trên URL, chủ đề theo dõi được và từ khoá liên quan.
+- **Thư viện cá nhân:** danh sách muốn xem, phim đã xem kèm chấm điểm, danh sách tự tạo chia sẻ bằng link, nhắc lịch khởi chiếu (thông báo và file `.ics`) và đánh dấu tập đã xem.
+- **Giải trí:** trò đoán phim mỗi ngày có chuỗi ngày, huy hiệu, thẻ tổng kết năm, so sánh hai tựa phim, và "Xem cùng nhau", nơi cả nhóm vuốt chọn phim qua một link chung.
+
+## Xem qua ứng dụng
+
+<Figure
+  src="/work/cinescope/home.webp"
+  width={1440}
+  height={900}
+  alt="Trang chủ CineScope ở giao diện tối: banner lớn cho một phim nổi bật kèm độ phù hợp, điểm, thể loại và các nút thao tác, bên dưới là Top 10 phim tuần này với số thứ hạng viền lớn."
+  caption="Trang chủ với dữ liệu TMDB thật."
+/>
+
+<Figure
+  src="/work/cinescope/series-profile.webp"
+  width={1440}
+  height={900}
+  alt="Trang hồ sơ của một series hoạt hình trên CineScope: tab dòng thời gian với phần giới thiệu (tác giả, ngày phát sóng, tập kế tiếp, số mùa và tập), thẻ mùa phim có tiến độ, và các bài đăng kiểu mạng xã hội."
+  caption="Hồ sơ series: dòng thời gian kết hợp thông tin, các mùa và cập nhật như một news feed."
+/>
+
+<Figure
+  src="/work/cinescope/discover.webp"
+  width={1440}
+  height={900}
+  alt="Trang Khám phá của CineScope: nút Surprise me, các thẻ trong mục Play & tools (Movie quiz, Watch together, Compare) và các ô thể loại nhiều màu."
+  caption="Khám phá: trò chơi và công cụ nằm cạnh phần duyệt theo thể loại."
+/>
+
+<Figure
+  src="/work/cinescope/badges.webp"
+  width={1440}
+  height={900}
+  alt="Trang Insights của CineScope với mười hai huy hiệu kèm thanh tiến độ, như First steps, Cinephile, Horror buff và On fire, bên dưới là thẻ CineScope Wrapped cho năm 2026."
+  caption="Huy hiệu và thẻ tổng kết năm."
+/>
+
+## Cá nhân hoá mà không theo dõi
+
+Gợi ý được tạo **theo quy tắc, không dùng AI hay machine learning**, và mọi dữ liệu người dùng đều nằm trên trình duyệt. Điều này làm vài thứ đơn giản hơn (không tài khoản, không cơ sở dữ liệu) và một thứ khó hơn: mọi tính toán cá nhân phải chạy nhanh ngay trên thiết bị.
+
+<Figure
+  src="/work/cinescope/insights-taste.webp"
+  width={1440}
+  height={900}
+  alt="Trang Insights của CineScope ở giao diện tối, mục Your taste ghi rõ được tính ngay trên trình duyệt và không gửi đi đâu: các ô đã xem, trong danh sách, đã thích và gu chính, biểu đồ cột các thể loại xem nhiều nhất với điểm sở thích giảm dần theo thời gian, và biểu đồ hoạt động 30 ngày qua. Mỗi biểu đồ có nút Show as table."
+  caption="Trang Insights. Gu xem phim được tính ngay trên trình duyệt, và mỗi biểu đồ đều mở được dưới dạng bảng, để dữ liệu không bị khoá trong một hình ảnh."
+/>
+
+<Figure
+  src="/work/cinescope/settings.webp"
+  width={1440}
+  height={900}
+  alt="Trang Cài đặt của CineScope: sáu lựa chọn giao diện (Hệ thống, Sáng, Tối và ba biến thể Liquid Glass), ngôn ngữ và khu vực, và phần cá nhân hoá ghi rõ gợi ý chỉ được lưu trên trình duyệt này."
+  caption="Cài đặt: giao diện, ngôn ngữ và lời nói rõ rằng dữ liệu cá nhân nằm trên trình duyệt."
+/>
+
+## Giữ API token khỏi phía client
+
+Ứng dụng được phục vụ bởi một **Cloudflare Worker**, đồng thời làm proxy cho các request tới TMDB. Token nằm trên Worker; cấu hình Vite loại bỏ token khỏi mọi bản build production, nên nó không bao giờ tới trình duyệt.
+
+<WorkerProxy
+  label="Sơ đồ: trình duyệt giao tiếp với Cloudflare Worker, Worker phục vụ ứng dụng và gọi TMDB bằng token phía server; dữ liệu người dùng nằm trong bộ nhớ trình duyệt."
+  caption="Trình duyệt không bao giờ thấy TMDB token. Dữ liệu cá nhân không bao giờ rời khỏi trình duyệt."
+/>
+
+## Các cổng kiểm tra chất lượng
+
+Mỗi lần push và mỗi pull request đều chạy lint (oxlint), kiểm tra kiểu, unit test (Vitest), build production và kiểm tra bundle của Worker. Logic proxy và SEO của Worker có test riêng.
+
+## Những chi tiết tôi chú trọng
+
+- Giao diện sáng, tối và tự động, cùng theme "Liquid Glass" dùng hiệu ứng khúc xạ SVG trên trình duyệt Chromium.
+- Cuộn vô hạn, và bố cục hoạt động tốt từ điện thoại đến desktop.
+- Giao diện song ngữ Việt và Anh.

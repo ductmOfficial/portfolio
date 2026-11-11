@@ -1,0 +1,50 @@
+## Bối cảnh
+
+Heureka Business Solutions, thành lập năm 2014, phát triển phần mềm tối ưu intralogistics ứng dụng AI và quản lý kho. Sản phẩm chính là LOS, nền tảng web quản lý logistics. Tôi tham gia từ tháng 10/2021 và là người đóng góp nhiều nhất từ đó: khoảng 6.500 commit trong năm năm và hơn 40 module cho nghiệp vụ kho, vận tải và tài chính, xây dựng với React, Redux Toolkit, React Query và MUI.
+
+## Một nền tảng, nhiều địa điểm
+
+LOS phục vụ các khách hàng như Siemens (Nuremberg và Singapore), Loxxess, Bewital và ZooRoyal. Tôi đã triển khai các instance theo địa điểm tại **Đức, Singapore, Mexico và Brazil**, mỗi nơi có KPI, dashboard và layout kho riêng.
+
+## Framework widget thay vì dashboard làm riêng lẻ
+
+Cốt lõi của cách làm này là một framework widget và dashboard cấu hình được. Mỗi widget có:
+
+- **thiết lập lưu theo từng người dùng**, để mỗi người giữ góc nhìn riêng của mình trên dashboard;
+- **bộ lọc khoảng ngày**, **tổng hợp** và **xuất dữ liệu**;
+- **kiểm tra tính hợp lệ** để đánh dấu các giá trị bất thường.
+
+Cùng một framework làm nền cho các dashboard thời gian thực, hằng ngày và phân tích tại mọi địa điểm khách hàng.
+
+<WidgetFramework
+  label="Sơ đồ: cấu hình địa điểm, thiết lập người dùng và khoảng thời gian đi vào một framework widget, từ đó hiển thị dashboard thời gian thực, hằng ngày và phân tích."
+  caption="Một pipeline, ba chế độ dashboard, dùng tại mọi địa điểm khách hàng."
+/>
+
+## Vẽ mặt bằng kho
+
+Dashboard cần một mặt bằng để tham chiếu. Tôi xây **Layout Builder** và **Heatmap Builder** cho mặt bằng kho, có mẫu khu vực, cấu hình dãy kệ và zoom/pan, và dùng chúng để tạo layout riêng cho các địa điểm của Siemens và Loxxess.
+
+## Giám sát vận hành
+
+Ngoài dashboard, tôi xây các module vận hành và nghiệp vụ mà người dùng làm việc hằng ngày:
+
+- theo dõi lô hàng **Control Tower** với thời gian SLA;
+- **Packing Monitor** và **Trucks on Site**;
+- **Digital Billing & Price Sheets** và **hệ thống ticket**;
+- bản đồ Leaflet, dashboard ApexCharts và **chế độ trình chiếu** toàn màn hình cho màn hình tại xưởng.
+
+## Truy cập và ngôn ngữ
+
+Đăng nhập dùng **Azure AD SSO (MSAL)**. Phân quyền theo vai trò được áp dụng nhất quán cho điều hướng, trang và từng thao tác. Bản dịch lấy từ API và hiển thị bằng i18next.
+
+## Giữ cho codebase năm năm tuổi luôn nhanh
+
+| Mảng         | Thay đổi                                         |
+| ------------ | ------------------------------------------------ |
+| Tải trang    | Tải lười route và dialog; giảm kích thước bundle |
+| Bảng lớn     | Ảo hoá với react-window và react-virtuoso        |
+| Build        | Chuyển sang SWC                                  |
+| Server state | Từ SWR sang React Query, dùng cùng Zustand       |
+
+> Mã nguồn và giao diện của khách hàng được giữ kín. Sơ đồ đã được đơn giản hoá và không chứa mã độc quyền.

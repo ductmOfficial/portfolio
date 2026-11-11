@@ -1,0 +1,86 @@
+## Warum dieses Projekt
+
+CineScope ist mein eigenes Projekt: eine App zum Entdecken von Filmen und Serien auf Basis der TMDB-API, auf Vietnamesisch und Englisch. Hier probiere ich Ideen außerhalb der Kundenarbeit aus, mit denselben Ansprüchen: durchgängig typisiert, getestet und bei jedem Push in der CI geprüft.
+
+Der Stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Tailwind CSS und ein Cloudflare Worker.
+
+## Was die App kann
+
+- **Eine Startseite im Stil eines Streamingdienstes.** Banner, Top 10, Reihen nach Geschmack, Thema und Anlass (Wochenende, Tết und andere Feiertage) sowie „Weiterschauen“ mit Sprung zur nächsten Folge.
+- **Profile für Filme, Serien und Personen** im Stil eines sozialen Netzwerks: Zeitleiste, Videos mit einem Player, der beim Scrollen schrumpft, Fotos, Besetzung, Staffeln und Folgen sowie Streaming-Anbieter.
+- **Entdecken und Suchen** mit Filtern in der URL, abonnierbaren Themen und verwandten Schlagwörtern.
+- **Eine persönliche Bibliothek:** Merkliste, gesehene Titel mit Bewertung, eigene Listen zum Teilen per Link, Erinnerungen an Starttermine (Benachrichtigung und `.ics`-Datei) und Folgen-Tracking.
+- **Spielen:** ein tägliches Film-Ratespiel mit Serien, Abzeichen, eine Jahresrückblick-Karte, ein Vergleich zweier Titel und „Gemeinsam schauen“, bei dem eine Gruppe über einen geteilten Link Vorschläge durchwischt.
+
+## Ein Blick in die App
+
+<Figure
+  src="/work/cinescope/home.webp"
+  width={1440}
+  height={900}
+  alt="Startseite von CineScope im dunklen Design: ein breites Banner für einen hervorgehobenen Film mit Übereinstimmung, Bewertung, Genres und Aktionen, darunter die Top 10 Filme der Woche mit großen umrandeten Rangziffern."
+  caption="Die Startseite mit echten TMDB-Daten."
+/>
+
+<Figure
+  src="/work/cinescope/series-profile.webp"
+  width={1440}
+  height={900}
+  alt="Profilseite einer Animationsserie in CineScope: ein Zeitleisten-Tab mit Einführung (Schöpfer, Erstausstrahlung, nächste Folge, Staffeln und Folgen), eine Staffelkarte mit Fortschritt und Beiträge im Stil eines sozialen Feeds."
+  caption="Ein Serienprofil: Die Zeitleiste mischt Fakten, Staffeln und Neuigkeiten wie ein Feed."
+/>
+
+<Figure
+  src="/work/cinescope/discover.webp"
+  width={1440}
+  height={900}
+  alt="Entdecken-Seite von CineScope: eine Schaltfläche „Surprise me“, Karten unter „Play & tools“ (Movie quiz, Watch together, Compare) und farbige Genre-Kacheln."
+  caption="Entdecken: Spiele und Werkzeuge stehen neben der Genre-Suche."
+/>
+
+<Figure
+  src="/work/cinescope/badges.webp"
+  width={1440}
+  height={900}
+  alt="Insights-Seite von CineScope mit zwölf Abzeichen samt Fortschrittsbalken, etwa First steps, Cinephile, Horror buff und On fire, darunter eine CineScope-Wrapped-Karte für das Jahr 2026."
+  caption="Abzeichen und die Jahresrückblick-Karte."
+/>
+
+## Persönlich ohne Tracking
+
+Empfehlungen sind **regelbasiert, ohne KI oder maschinelles Lernen**, und alle Nutzerdaten bleiben im Browser. Das machte manches einfacher (keine Konten, keine Datenbank) und eines schwieriger: Alles Persönliche muss schnell auf dem Gerät berechnet werden.
+
+<Figure
+  src="/work/cinescope/insights-taste.webp"
+  width={1440}
+  height={900}
+  alt="Insights-Seite von CineScope im dunklen Design, Abschnitt Your taste mit dem Hinweis, dass er nur im Browser berechnet und nirgendwohin gesendet wird: Kacheln für angesehen, Merkliste, Likes und Hauptgeschmack, ein Balkendiagramm der meistgesehenen Genres mit abklingendem Geschmackswert und ein Diagramm der Aktivität der letzten 30 Tage. Jedes Diagramm hat einen Schalter Show as table."
+  caption="Die Insights-Seite. Das Geschmacksprofil wird im Browser berechnet, und jedes Diagramm lässt sich als Tabelle öffnen, damit die Daten nicht in einem Bild eingeschlossen sind."
+/>
+
+<Figure
+  src="/work/cinescope/settings.webp"
+  width={1440}
+  height={900}
+  alt="Einstellungen von CineScope: sechs Design-Optionen (System, Hell, Dunkel und drei Liquid-Glass-Varianten), Sprache und Region sowie ein Abschnitt zur Personalisierung mit dem Hinweis, dass Vorschläge nur in diesem Browser gespeichert werden."
+  caption="Einstellungen: Design, Sprache und der klare Hinweis, dass persönliche Daten im Browser bleiben."
+/>
+
+## Den API-Token vom Client fernhalten
+
+Die App wird von einem **Cloudflare Worker** ausgeliefert, der auch die Anfragen an TMDB weiterleitet. Der Token liegt im Worker; die Vite-Konfiguration entfernt ihn aus jedem Produktions-Build, sodass er nie im Browser landet.
+
+<WorkerProxy
+  label="Diagramm: Der Browser spricht mit einem Cloudflare Worker, der die App ausliefert und TMDB mit einem serverseitigen Token anspricht; Nutzerdaten bleiben im Browserspeicher."
+  caption="Der Browser sieht den TMDB-Token nie. Persönliche Daten verlassen den Browser nie."
+/>
+
+## Qualitätsschranken
+
+Jeder Push und jeder Pull Request durchläuft Lint (oxlint), Typprüfung, Unit-Tests (Vitest), einen Produktions-Build und eine Prüfung des Worker-Bundles. Proxy- und SEO-Logik des Workers haben eigene Tests.
+
+## Details, die mir wichtig waren
+
+- Helles, dunkles und automatisches Design sowie ein „Liquid Glass“-Design mit SVG-Lichtbrechung in Chromium-Browsern.
+- Endloses Scrollen und ein Layout, das vom Smartphone bis zum Desktop funktioniert.
+- Zweisprachige Oberfläche, Vietnamesisch und Englisch.

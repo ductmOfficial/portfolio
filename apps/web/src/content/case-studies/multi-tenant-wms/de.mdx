@@ -1,0 +1,59 @@
+## Kontext
+
+BBX Intra ist ein deutsches Beratungs- und Softwareunternehmen für Intralogistik und Supply-Chain-Optimierung. Sein Produkt ist eine Lager- und Logistikplattform, die für mehrere Lager läuft und unter mehreren Marken vertrieben wird. Im Februar 2026 habe ich das Frontend in einem leeren Repository begonnen und bin seitdem der Hauptentwickler, mit knapp 600 Commits.
+
+Der Stack: React 19, TypeScript, Vite, MUI, TanStack Query, React Router v7 und ECharts.
+
+## Ein Frontend, viele Lager
+
+Jedes Lager hat seinen eigenen API-Host, eigene Zielwerte und eigene Benutzer. Statt eines Builds pro Kunde löst das Frontend alles zur Laufzeit auf:
+
+- **API-Host pro Lager.** Das Lager in der URL bestimmt zur Laufzeit, mit welchem Backend die App spricht.
+- **Lagerbezogenes Routing.** Benutzer wechseln nahtlos zwischen Lagern, innerhalb derselben laufenden App.
+- **Eine Route-Map.** Routen, Navigationsmenü und Zugriffskontrolle werden aus einer einzigen Map abgeleitet. Eine Seite, die eine Rolle nicht öffnen darf, wird weder geroutet noch im Menü angezeigt; dieselbe Regel gilt für einzelne Komponenten.
+
+<TenantRouting
+  label="Diagramm: Das Lager in der URL wählt den API-Host; eine Route-Map steuert Router, Navigation und Zugriffskontrolle."
+  caption="Alles, was je Mandant variiert, wird zur Laufzeit aus zwei Eingaben aufgelöst: der URL und der Route-Map."
+/>
+
+## Dashboards für den Betrieb in der Halle
+
+Ich habe über zehn operative und Reporting-Dashboards umgesetzt: Live Ops, SLA & Service Quality, Productivity, Picking Tour Cockpit, Storage Occupancy sowie Inbound/Outbound. Sie teilen sich ein wiederverwendbares KPI-Widget-Framework mit:
+
+- Aggregation nach Perioden, auf Basis von **Arbeitstagskalendern** und **lagerspezifischen Zielwerten**;
+- **Drill-down** vom Diagramm zu den zugrunde liegenden Aufträgen und vom Auftrag zu seinen Positionen;
+- Export sowie Dialogzustand in der URL, sodass eine gefilterte Ansicht als Link geteilt werden kann.
+
+## Die weniger sichtbaren Teile
+
+- **Authentifizierung.** Der Token-Refresh läuft über Axios-Interceptors mit Warteschlange: Schlagen mehrere Anfragen gleichzeitig fehl, warten sie auf einen einzigen Refresh, statt jeweils einen eigenen zu starten. Abgelaufene Sitzungen werden explizit behandelt.
+- **Massenimport.** Importwerkzeuge für CSV und XLSX mit konfigurierbarem Daten-Mapping und Upload-Fortschritt.
+- **White-Labeling.** Jede Marke ist ein Satz CSS-Variablen. Englische und deutsche Übersetzungen werden nachgeladen, und ein CI-Check bricht den Build ab, wenn Übersetzungsschlüssel auseinanderlaufen.
+
+## Gemessen, nicht geschätzt: −549 kB
+
+ECharts wurde vollständig importiert. Ich habe auf selektive, tree-shakebare Imports umgestellt und anschließend diesen Commit und seinen Vorgänger gebaut und verglichen. Code-Splitting auf Routenebene gab es bereits seit dem ersten Commit; die Einsparung kommt also zusätzlich dazu.
+
+<BundleChart
+  locale="de-DE"
+  label="Balkendiagramm: Entry-Chunk 2.913,93 kB vorher und 2.364,45 kB nachher mit selektiven ECharts-Imports."
+  caption="Entry-Chunk, unkomprimiert, gemessen am 22. Oktober 2026. Mit gzip beträgt die Einsparung 180 kB."
+  bars={[
+    { label: "Vorher", kb: 2913.93 },
+    { label: "Nachher", kb: 2364.45 },
+  ]}
+/>
+
+| Messgröße                   | Vorher      | Nachher     | Änderung |
+| --------------------------- | ----------- | ----------- | -------- |
+| Entry-Chunk (unkomprimiert) | 2.913,93 kB | 2.364,45 kB | −549 kB  |
+| Entry-Chunk (gzip)          |             |             | −180 kB  |
+
+## Wartbar bleiben
+
+- Die hauseigene virtualisierte Datentabelle rund um typisierte Spalten neu geschrieben, ohne Grid-Bibliothek von Drittanbietern.
+- Die Migration von JavaScript zu TypeScript vorangetrieben: rund 75 % des Codes (75,6 % der Zeilen, 73,9 % der Dateien) sind inzwischen TypeScript.
+- Eine Schichtenarchitektur mit ESLint-Regeln durchgesetzt, sodass schichtübergreifende Imports vom Linter gemeldet werden.
+
+> Kundencode und Oberflächen bleiben vertraulich. Die Diagramme sind vereinfacht und enthalten keinen proprietären Code.

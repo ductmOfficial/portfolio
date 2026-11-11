@@ -1,0 +1,86 @@
+## Why build it
+
+CineScope is my own project: a movie and series discovery app on the TMDB API, in Vietnamese and English. It is where I try ideas outside client work, with the same standards: typed end to end, tested, and checked in CI on every push.
+
+The stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Tailwind CSS, and a Cloudflare Worker.
+
+## What it does
+
+- **A streaming-style home page.** A banner, a Top 10, rows by taste, by theme and by occasion (weekends, Tết and other holidays), and "continue watching" that jumps to the next episode.
+- **Profiles for movies, series and people,** laid out like a social feed: a timeline, videos with a player that shrinks as you scroll, photos, cast, seasons and episodes, and where to watch.
+- **Explore and search** with filters stored in the URL, followable themes, and related keywords.
+- **A personal library:** watchlist, watched titles with ratings, custom lists shared by link, release reminders (notifications and an `.ics` file), and episode tracking.
+- **Play:** a daily guess-the-movie game with streaks, badges, a year-in-review card, a side-by-side comparison of two titles, and "watch together", where a group swipes through options from a shared link.
+
+## A look at the app
+
+<Figure
+  src="/work/cinescope/home.webp"
+  width={1440}
+  height={900}
+  alt="CineScope home page in dark mode: a full-width banner for a featured film with match score, rating, genres and action buttons, followed by the Top 10 movies of the week with large outlined rank numbers."
+  caption="The home page, with live TMDB data."
+/>
+
+<Figure
+  src="/work/cinescope/series-profile.webp"
+  width={1440}
+  height={900}
+  alt="CineScope profile page for an animated series: a timeline tab with the series intro (creator, first air date, next episode, seasons and episodes), a seasons card with progress, and posts in a social-feed layout."
+  caption="A series profile: the timeline mixes facts, seasons and updates like a feed."
+/>
+
+<Figure
+  src="/work/cinescope/discover.webp"
+  width={1440}
+  height={900}
+  alt="CineScope Discover page: a Surprise me button, Play & tools cards (Movie quiz, Watch together, Compare) and colour-coded genre tiles."
+  caption="Discover: games and tools sit next to genre browsing."
+/>
+
+<Figure
+  src="/work/cinescope/badges.webp"
+  width={1440}
+  height={900}
+  alt="CineScope Insights page showing twelve badges with progress bars, such as First steps, Cinephile, Horror buff and On fire, followed by a CineScope Wrapped card for the year 2026."
+  caption="Badges and the year-in-review card."
+/>
+
+## Personal without tracking
+
+Recommendations are **rule-based, not AI or machine learning**, and every piece of user data stays in the browser. That made a few things simpler (no accounts, no database) and one thing harder: everything personal has to be computed on the device, quickly.
+
+<Figure
+  src="/work/cinescope/insights-taste.webp"
+  width={1440}
+  height={900}
+  alt="CineScope Insights page in dark mode, section Your taste, labelled computed in this browser, never sent anywhere: tiles for viewed, in my list, liked and main taste, a bar chart of the genres the user watches most with a decaying taste score, and a chart of activity over the last 30 days. Each chart has a Show as table toggle."
+  caption="The Insights page. The taste profile is computed in the browser, and every chart can be opened as a table, so the data is not locked inside a picture."
+/>
+
+<Figure
+  src="/work/cinescope/settings.webp"
+  width={1440}
+  height={900}
+  alt="CineScope settings: six theme options (System, Light, Dark and three Liquid Glass variants), language and region, and a personalisation section explaining that suggestions are stored only in this browser."
+  caption="Settings: theme, language, and a plain statement that personal data stays in the browser."
+/>
+
+## Keeping the API token off the client
+
+The app is served by a **Cloudflare Worker**, which also proxies requests to TMDB. The token lives on the Worker; the Vite config strips it from every production build, so it never reaches the browser.
+
+<WorkerProxy
+  label="Diagram: the browser talks to a Cloudflare Worker, which serves the app and proxies TMDB with a server-side token; user data stays in browser storage."
+  caption="The browser never sees the TMDB token. Personal data never leaves the browser."
+/>
+
+## Quality gates
+
+Every push and pull request runs lint (oxlint), type-check, unit tests (Vitest), a production build, and a check of the Worker bundle. The Worker's proxy and SEO logic have their own tests.
+
+## Details I cared about
+
+- Light, dark and automatic themes, plus a "Liquid Glass" theme that uses SVG refraction on Chromium browsers.
+- Infinite scroll, and a layout that works from phone to desktop.
+- Bilingual interface, Vietnamese and English.

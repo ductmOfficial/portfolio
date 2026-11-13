@@ -390,8 +390,8 @@ const cvInput = {
       stack: ["React", "Redux Toolkit", "React Query", "MUI"],
     },
     {
-      id: "cinescope",
-      name: "CineScope",
+      id: "lumi",
+      name: "Lumi",
       kicker: { en: "Side project", de: "Eigenes Projekt", vi: "Dự án cá nhân" },
       caseStudy: true,
       description: {

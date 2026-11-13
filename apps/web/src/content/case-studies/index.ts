@@ -27,11 +27,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       vi: () => import("./los-dashboards/vi.mdx"),
     },
   },
-  cinescope: {
+  lumi: {
     body: {
-      en: () => import("./cinescope/en.mdx"),
-      de: () => import("./cinescope/de.mdx"),
-      vi: () => import("./cinescope/vi.mdx"),
+      en: () => import("./lumi/en.mdx"),
+      de: () => import("./lumi/de.mdx"),
+      vi: () => import("./lumi/vi.mdx"),
     },
   },
 };

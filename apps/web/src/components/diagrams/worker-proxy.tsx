@@ -1,6 +1,6 @@
 import { Arrow, Box, DiagramFrame } from "./frame";
 
-/** CineScope: the Worker serves the SPA and proxies TMDB, so the API token never ships to the browser. */
+/** Lumi: the Worker serves the SPA and proxies TMDB, so the API token never ships to the browser. */
 export function WorkerProxy({ label, caption }: { label: string; caption?: string }) {
   return (
     <DiagramFrame label={label} caption={caption} viewBox="0 0 860 220">

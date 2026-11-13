@@ -1,6 +1,6 @@
 ## Why build it
 
-CineScope is my own project: a movie and series discovery app on the TMDB API, in Vietnamese and English. It is where I try ideas outside client work, with the same standards: typed end to end, tested, and checked in CI on every push.
+Lumi (formerly CineScope) is my own project: a movie and series discovery app on the TMDB API, in Vietnamese and English. It is where I try ideas outside client work, with the same standards: typed end to end, tested, and checked in CI on every push. Live at [lumi.tmduc.workers.dev](https://lumi.tmduc.workers.dev).
 
 The stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Tailwind CSS, and a Cloudflare Worker.
 
@@ -15,34 +15,34 @@ The stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Ta
 ## A look at the app
 
 <Figure
-  src="/work/cinescope/home.webp"
+  src="/work/lumi/home.webp"
   width={1440}
   height={900}
-  alt="CineScope home page in dark mode: a full-width banner for a featured film with match score, rating, genres and action buttons, followed by the Top 10 movies of the week with large outlined rank numbers."
+  alt="Lumi home page in dark mode: a full-width banner for a featured series with match score, rating, genres and action buttons, followed by the Top 10 movies of the week with large outlined rank numbers."
   caption="The home page, with live TMDB data."
 />
 
 <Figure
-  src="/work/cinescope/series-profile.webp"
+  src="/work/lumi/movie-profile.webp"
   width={1440}
   height={900}
-  alt="CineScope profile page for an animated series: a timeline tab with the series intro (creator, first air date, next episode, seasons and episodes), a seasons card with progress, and posts in a social-feed layout."
-  caption="A series profile: the timeline mixes facts, seasons and updates like a feed."
+  alt="Lumi profile page for a movie: a wide cover image, the poster, title, year, runtime, genres, rating and match score, buttons to add to My List, like, mark as watched and play the trailer, then a Timeline tab with an intro card (director, release date, runtime, countries) next to a post that shares the storyline."
+  caption="A movie profile: the timeline mixes facts and updates like a feed."
 />
 
 <Figure
-  src="/work/cinescope/discover.webp"
+  src="/work/lumi/discover.webp"
   width={1440}
   height={900}
-  alt="CineScope Discover page: a Surprise me button, Play & tools cards (Movie quiz, Watch together, Compare) and colour-coded genre tiles."
+  alt="Lumi Discover page: a Surprise me button, Play & tools cards (Movie quiz, Watch together, Compare) and colour-coded genre tiles."
   caption="Discover: games and tools sit next to genre browsing."
 />
 
 <Figure
-  src="/work/cinescope/badges.webp"
+  src="/work/lumi/badges.webp"
   width={1440}
   height={900}
-  alt="CineScope Insights page showing twelve badges with progress bars, such as First steps, Cinephile, Horror buff and On fire, followed by a CineScope Wrapped card for the year 2026."
+  alt="Lumi Insights page showing twelve badges with progress, such as First steps, Cinephile, Horror buff and On fire, followed by a Your 2026 year-in-review card and this week's trends."
   caption="Badges and the year-in-review card."
 />
 
@@ -51,19 +51,19 @@ The stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Ta
 Recommendations are **rule-based, not AI or machine learning**, and every piece of user data stays in the browser. That made a few things simpler (no accounts, no database) and one thing harder: everything personal has to be computed on the device, quickly.
 
 <Figure
-  src="/work/cinescope/insights-taste.webp"
+  src="/work/lumi/insights-taste.webp"
   width={1440}
   height={900}
-  alt="CineScope Insights page in dark mode, section Your taste, labelled computed in this browser, never sent anywhere: tiles for viewed, in my list, liked and main taste, a bar chart of the genres the user watches most with a decaying taste score, and a chart of activity over the last 30 days. Each chart has a Show as table toggle."
+  alt="Lumi Insights page in dark mode: bar charts of trending genres for movies and series and of top-rated movies by decade, then the section Your taste, labelled computed in this browser, never sent anywhere, with tiles for viewed, in my list, liked and main taste, the genres the user watches most and activity over the last 30 days. Each chart has a Show as table toggle."
   caption="The Insights page. The taste profile is computed in the browser, and every chart can be opened as a table, so the data is not locked inside a picture."
 />
 
 <Figure
-  src="/work/cinescope/settings.webp"
+  src="/work/lumi/settings.webp"
   width={1440}
   height={900}
-  alt="CineScope settings: six theme options (System, Light, Dark and three Liquid Glass variants), language and region, and a personalisation section explaining that suggestions are stored only in this browser."
-  caption="Settings: theme, language, and a plain statement that personal data stays in the browser."
+  alt="Lumi settings: six appearance options (System, Light, Dark and three Liquid Glass variants), language and region, the region for release dates and where to watch, and the streaming service whose new titles get a row on the home page."
+  caption="Settings: appearance, language, region and your streaming service."
 />
 
 ## Keeping the API token off the client

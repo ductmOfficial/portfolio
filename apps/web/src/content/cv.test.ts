@@ -15,11 +15,7 @@ describe("selectCv", () => {
     const bbx = prod.experience.find((e) => e.id === "bbx-intra");
     expect(bbx?.highlights).toHaveLength(6);
     expect(preview.experience.find((e) => e.id === "bbx-intra")?.highlights).toHaveLength(10);
-    expect(prod.projects.map((p) => p.id)).toEqual([
-      "multi-tenant-wms",
-      "los-dashboards",
-      "cinescope",
-    ]);
+    expect(prod.projects.map((p) => p.id)).toEqual(["multi-tenant-wms", "los-dashboards", "lumi"]);
     expect(prod.contacts.some((c) => c.kind === "github")).toBe(false);
     expect(prod.certifications).toEqual([]);
   });

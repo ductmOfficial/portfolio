@@ -1,6 +1,6 @@
 ## Warum dieses Projekt
 
-CineScope ist mein eigenes Projekt: eine App zum Entdecken von Filmen und Serien auf Basis der TMDB-API, auf Vietnamesisch und Englisch. Hier probiere ich Ideen außerhalb der Kundenarbeit aus, mit denselben Ansprüchen: durchgängig typisiert, getestet und bei jedem Push in der CI geprüft.
+Lumi (früher CineScope) ist mein eigenes Projekt: eine App zum Entdecken von Filmen und Serien auf Basis der TMDB-API, auf Vietnamesisch und Englisch. Hier probiere ich Ideen außerhalb der Kundenarbeit aus, mit denselben Ansprüchen: durchgängig typisiert, getestet und bei jedem Push in der CI geprüft. Live unter [lumi.tmduc.workers.dev](https://lumi.tmduc.workers.dev).
 
 Der Stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Tailwind CSS und ein Cloudflare Worker.
 
@@ -15,35 +15,35 @@ Der Stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Ta
 ## Ein Blick in die App
 
 <Figure
-  src="/work/cinescope/home.webp"
+  src="/work/lumi/home.webp"
   width={1440}
   height={900}
-  alt="Startseite von CineScope im dunklen Design: ein breites Banner für einen hervorgehobenen Film mit Übereinstimmung, Bewertung, Genres und Aktionen, darunter die Top 10 Filme der Woche mit großen umrandeten Rangziffern."
+  alt="Startseite von Lumi im dunklen Design: ein breites Banner für eine hervorgehobene Serie mit Übereinstimmung, Bewertung, Genres und Aktionen, darunter die Top 10 Filme der Woche mit großen konturierten Rangziffern."
   caption="Die Startseite mit echten TMDB-Daten."
 />
 
 <Figure
-  src="/work/cinescope/series-profile.webp"
+  src="/work/lumi/movie-profile.webp"
   width={1440}
   height={900}
-  alt="Profilseite einer Animationsserie in CineScope: ein Zeitleisten-Tab mit Einführung (Schöpfer, Erstausstrahlung, nächste Folge, Staffeln und Folgen), eine Staffelkarte mit Fortschritt und Beiträge im Stil eines sozialen Feeds."
-  caption="Ein Serienprofil: Die Zeitleiste mischt Fakten, Staffeln und Neuigkeiten wie ein Feed."
+  alt="Profilseite eines Films in Lumi: ein breites Titelbild, das Poster, Titel, Jahr, Laufzeit, Genres, Bewertung und Übereinstimmung, Schaltflächen für Meine Liste, Gefällt mir, Als gesehen markieren und Trailer, darunter ein Zeitleisten-Tab mit einer Intro-Karte (Regie, Erscheinungsdatum, Laufzeit, Länder) neben einem Beitrag mit der Handlung."
+  caption="Ein Filmprofil: Die Zeitleiste mischt Fakten und Neuigkeiten wie ein Feed."
 />
 
 <Figure
-  src="/work/cinescope/discover.webp"
+  src="/work/lumi/discover.webp"
   width={1440}
   height={900}
-  alt="Entdecken-Seite von CineScope: eine Schaltfläche „Surprise me“, Karten unter „Play & tools“ (Movie quiz, Watch together, Compare) und farbige Genre-Kacheln."
-  caption="Entdecken: Spiele und Werkzeuge stehen neben der Genre-Suche."
+  alt="Entdecken-Seite von Lumi: eine Schaltfläche „Surprise me“, Karten unter „Play & tools“ (Movie quiz, Watch together, Compare) und farbige Genre-Kacheln."
+  caption="Entdecken: Spiele und Werkzeuge stehen neben dem Stöbern nach Genres."
 />
 
 <Figure
-  src="/work/cinescope/badges.webp"
+  src="/work/lumi/badges.webp"
   width={1440}
   height={900}
-  alt="Insights-Seite von CineScope mit zwölf Abzeichen samt Fortschrittsbalken, etwa First steps, Cinephile, Horror buff und On fire, darunter eine CineScope-Wrapped-Karte für das Jahr 2026."
-  caption="Abzeichen und die Jahresrückblick-Karte."
+  alt="Insights-Seite von Lumi mit zwölf Abzeichen samt Fortschritt, etwa First steps, Cinephile, Horror buff und On fire, darunter eine Karte „Your 2026“ als Jahresrückblick und die Trends der Woche."
+  caption="Abzeichen und die Karte zum Jahresrückblick."
 />
 
 ## Persönlich ohne Tracking
@@ -51,19 +51,19 @@ Der Stack: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Ta
 Empfehlungen sind **regelbasiert, ohne KI oder maschinelles Lernen**, und alle Nutzerdaten bleiben im Browser. Das machte manches einfacher (keine Konten, keine Datenbank) und eines schwieriger: Alles Persönliche muss schnell auf dem Gerät berechnet werden.
 
 <Figure
-  src="/work/cinescope/insights-taste.webp"
+  src="/work/lumi/insights-taste.webp"
   width={1440}
   height={900}
-  alt="Insights-Seite von CineScope im dunklen Design, Abschnitt Your taste mit dem Hinweis, dass er nur im Browser berechnet und nirgendwohin gesendet wird: Kacheln für angesehen, Merkliste, Likes und Hauptgeschmack, ein Balkendiagramm der meistgesehenen Genres mit abklingendem Geschmackswert und ein Diagramm der Aktivität der letzten 30 Tage. Jedes Diagramm hat einen Schalter Show as table."
+  alt="Insights-Seite von Lumi im dunklen Design: Balkendiagramme zu Trend-Genres bei Filmen und Serien und zu den bestbewerteten Filmen je Jahrzehnt, darunter der Abschnitt Your taste mit dem Hinweis, dass er nur im Browser berechnet und nirgendwohin gesendet wird: Kacheln für gesehen, in meiner Liste, gemocht und Hauptgeschmack, die meistgesehenen Genres und die Aktivität der letzten 30 Tage. Jedes Diagramm lässt sich als Tabelle anzeigen."
   caption="Die Insights-Seite. Das Geschmacksprofil wird im Browser berechnet, und jedes Diagramm lässt sich als Tabelle öffnen, damit die Daten nicht in einem Bild eingeschlossen sind."
 />
 
 <Figure
-  src="/work/cinescope/settings.webp"
+  src="/work/lumi/settings.webp"
   width={1440}
   height={900}
-  alt="Einstellungen von CineScope: sechs Design-Optionen (System, Hell, Dunkel und drei Liquid-Glass-Varianten), Sprache und Region sowie ein Abschnitt zur Personalisierung mit dem Hinweis, dass Vorschläge nur in diesem Browser gespeichert werden."
-  caption="Einstellungen: Design, Sprache und der klare Hinweis, dass persönliche Daten im Browser bleiben."
+  alt="Einstellungen von Lumi: sechs Design-Optionen (System, Hell, Dunkel und drei Liquid-Glass-Varianten), Sprache und Region, die Region für Erscheinungsdaten und Streaming-Angebote sowie der Streamingdienst, dessen Neuheiten eine eigene Reihe auf der Startseite bekommen."
+  caption="Einstellungen: Design, Sprache, Region und der eigene Streamingdienst."
 />
 
 ## Den API-Token vom Client fernhalten

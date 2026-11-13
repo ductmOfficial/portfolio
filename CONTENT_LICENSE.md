@@ -18,7 +18,7 @@ If you fork this repository, replace that content with your own before you publi
 
 - **IBM Plex Sans and IBM Plex Mono** (`apps/web/public/fonts/`): Copyright IBM Corp., licensed under the
   SIL Open Font License 1.1. See [`OFL.txt`](apps/web/public/fonts/OFL.txt).
-- **CineScope screenshots** (`apps/web/public/work/cinescope/`): the app is a personal project, but the screenshots
+- **Lumi screenshots** (`apps/web/public/work/lumi/`): the app is a personal project, but the screenshots
   show film and series posters, stills and logos fetched from TMDB. Those images belong to their respective
   rights holders and appear only to illustrate the app. This product uses the TMDB API but is not endorsed
   or certified by TMDB.

@@ -1,6 +1,6 @@
 ## Vì sao làm dự án này
 
-CineScope là dự án cá nhân của tôi: ứng dụng khám phá phim và series dựa trên TMDB API, có tiếng Việt và tiếng Anh. Đây là nơi tôi thử nghiệm ý tưởng ngoài công việc với khách hàng, nhưng vẫn giữ cùng tiêu chuẩn: có kiểu dữ liệu từ đầu đến cuối, có test và được CI kiểm tra mỗi lần push.
+Lumi (trước đây là CineScope) là dự án cá nhân của tôi: ứng dụng khám phá phim và series dựa trên TMDB API, có tiếng Việt và tiếng Anh. Đây là nơi tôi thử nghiệm ý tưởng ngoài công việc với khách hàng, nhưng vẫn giữ cùng tiêu chuẩn: có kiểu dữ liệu từ đầu đến cuối, có test và được CI kiểm tra mỗi lần push. Đang chạy tại [lumi.tmduc.workers.dev](https://lumi.tmduc.workers.dev).
 
 Công nghệ: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router, Tailwind CSS và Cloudflare Worker.
 
@@ -15,34 +15,34 @@ Công nghệ: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router,
 ## Xem qua ứng dụng
 
 <Figure
-  src="/work/cinescope/home.webp"
+  src="/work/lumi/home.webp"
   width={1440}
   height={900}
-  alt="Trang chủ CineScope ở giao diện tối: banner lớn cho một phim nổi bật kèm độ phù hợp, điểm, thể loại và các nút thao tác, bên dưới là Top 10 phim tuần này với số thứ hạng viền lớn."
+  alt="Trang chủ Lumi ở giao diện tối: banner lớn cho một series nổi bật kèm độ phù hợp, điểm, thể loại và các nút thao tác, bên dưới là Top 10 phim trong tuần với số thứ hạng lớn dạng viền."
   caption="Trang chủ với dữ liệu TMDB thật."
 />
 
 <Figure
-  src="/work/cinescope/series-profile.webp"
+  src="/work/lumi/movie-profile.webp"
   width={1440}
   height={900}
-  alt="Trang hồ sơ của một series hoạt hình trên CineScope: tab dòng thời gian với phần giới thiệu (tác giả, ngày phát sóng, tập kế tiếp, số mùa và tập), thẻ mùa phim có tiến độ, và các bài đăng kiểu mạng xã hội."
-  caption="Hồ sơ series: dòng thời gian kết hợp thông tin, các mùa và cập nhật như một news feed."
+  alt="Trang hồ sơ một bộ phim trên Lumi: ảnh bìa rộng, poster, tên phim, năm, thời lượng, thể loại, điểm và độ phù hợp, các nút thêm vào Danh sách, thích, đánh dấu đã xem và xem trailer, bên dưới là tab dòng thời gian với thẻ giới thiệu (đạo diễn, ngày phát hành, thời lượng, quốc gia) cạnh bài đăng chia sẻ cốt truyện."
+  caption="Hồ sơ phim: dòng thời gian trộn thông tin và cập nhật như một bảng tin."
 />
 
 <Figure
-  src="/work/cinescope/discover.webp"
+  src="/work/lumi/discover.webp"
   width={1440}
   height={900}
-  alt="Trang Khám phá của CineScope: nút Surprise me, các thẻ trong mục Play & tools (Movie quiz, Watch together, Compare) và các ô thể loại nhiều màu."
+  alt="Trang Khám phá của Lumi: nút Surprise me, các thẻ trong mục Play & tools (Movie quiz, Watch together, Compare) và các ô thể loại nhiều màu."
   caption="Khám phá: trò chơi và công cụ nằm cạnh phần duyệt theo thể loại."
 />
 
 <Figure
-  src="/work/cinescope/badges.webp"
+  src="/work/lumi/badges.webp"
   width={1440}
   height={900}
-  alt="Trang Insights của CineScope với mười hai huy hiệu kèm thanh tiến độ, như First steps, Cinephile, Horror buff và On fire, bên dưới là thẻ CineScope Wrapped cho năm 2026."
+  alt="Trang Insights của Lumi với mười hai huy hiệu kèm tiến độ, như First steps, Cinephile, Horror buff và On fire, bên dưới là thẻ tổng kết năm Your 2026 và xu hướng tuần này."
   caption="Huy hiệu và thẻ tổng kết năm."
 />
 
@@ -51,19 +51,19 @@ Công nghệ: React 19, TypeScript, Vite, TanStack Query, Zustand, React Router,
 Gợi ý được tạo **theo quy tắc, không dùng AI hay machine learning**, và mọi dữ liệu người dùng đều nằm trên trình duyệt. Điều này làm vài thứ đơn giản hơn (không tài khoản, không cơ sở dữ liệu) và một thứ khó hơn: mọi tính toán cá nhân phải chạy nhanh ngay trên thiết bị.
 
 <Figure
-  src="/work/cinescope/insights-taste.webp"
+  src="/work/lumi/insights-taste.webp"
   width={1440}
   height={900}
-  alt="Trang Insights của CineScope ở giao diện tối, mục Your taste ghi rõ được tính ngay trên trình duyệt và không gửi đi đâu: các ô đã xem, trong danh sách, đã thích và gu chính, biểu đồ cột các thể loại xem nhiều nhất với điểm sở thích giảm dần theo thời gian, và biểu đồ hoạt động 30 ngày qua. Mỗi biểu đồ có nút Show as table."
-  caption="Trang Insights. Gu xem phim được tính ngay trên trình duyệt, và mỗi biểu đồ đều mở được dưới dạng bảng, để dữ liệu không bị khoá trong một hình ảnh."
+  alt="Trang Insights của Lumi ở giao diện tối: biểu đồ cột về thể loại thịnh hành của phim và series và phim được đánh giá cao theo thập niên, rồi mục Your taste ghi rõ được tính ngay trên trình duyệt và không gửi đi đâu: các ô đã xem, trong danh sách, đã thích và gu chính, các thể loại xem nhiều nhất và hoạt động trong 30 ngày qua. Mỗi biểu đồ có nút xem dạng bảng."
+  caption="Trang Insights. Hồ sơ sở thích được tính ngay trên trình duyệt, và mọi biểu đồ đều mở được dạng bảng, nên dữ liệu không bị khoá trong một bức ảnh."
 />
 
 <Figure
-  src="/work/cinescope/settings.webp"
+  src="/work/lumi/settings.webp"
   width={1440}
   height={900}
-  alt="Trang Cài đặt của CineScope: sáu lựa chọn giao diện (Hệ thống, Sáng, Tối và ba biến thể Liquid Glass), ngôn ngữ và khu vực, và phần cá nhân hoá ghi rõ gợi ý chỉ được lưu trên trình duyệt này."
-  caption="Cài đặt: giao diện, ngôn ngữ và lời nói rõ rằng dữ liệu cá nhân nằm trên trình duyệt."
+  alt="Trang Cài đặt của Lumi: sáu lựa chọn giao diện (Hệ thống, Sáng, Tối và ba biến thể Liquid Glass), ngôn ngữ và khu vực, khu vực cho ngày phát hành và nơi xem, và dịch vụ phát mà phim mới sẽ có một hàng riêng ở trang chủ."
+  caption="Cài đặt: giao diện, ngôn ngữ, khu vực và dịch vụ phát bạn dùng."
 />
 
 ## Giữ API token khỏi phía client

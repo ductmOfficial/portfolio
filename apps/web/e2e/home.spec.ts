@@ -8,7 +8,7 @@ const pages = [
   "/work",
   "/work/multi-tenant-wms",
   "/work/los-dashboards",
-  "/work/cinescope",
+  "/work/lumi",
   "/skills",
   "/about",
   "/cv",
@@ -51,10 +51,15 @@ test("redirects / to the visitor language", async ({ browser }) => {
 });
 
 test("language switcher keeps the visitor on the same page", async ({ page }) => {
-  await page.goto("/en/work/cinescope");
+  await page.goto("/en/work/lumi");
   await page.getByRole("link", { name: /Deutsch/ }).click();
-  await expect(page).toHaveURL(/\/de\/work\/cinescope$/);
+  await expect(page).toHaveURL(/\/de\/work\/lumi$/);
   await expect(page.getByRole("heading", { level: 2 }).first()).toHaveText("Warum dieses Projekt");
+});
+
+test("the old CineScope address leads to the Lumi case study", async ({ page }) => {
+  await page.goto("/en/work/cinescope");
+  await expect(page).toHaveURL(/\/en\/work\/lumi$/);
 });
 
 test("every case-study card leads to its page", async ({ page }) => {
@@ -176,7 +181,7 @@ test.describe("seo and sharing", () => {
 
   test("sitemap lists every locale of every page, robots points to it", async ({ request }) => {
     const sitemap = await (await request.get("/sitemap.xml")).text();
-    for (const path of ["/en", "/de/work/cinescope", "/vi/metrics"])
+    for (const path of ["/en", "/de/work/lumi", "/vi/metrics"])
       expect(sitemap).toContain(`${path}</loc>`);
     expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
   });

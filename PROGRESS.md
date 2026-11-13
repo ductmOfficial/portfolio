@@ -20,6 +20,7 @@ The portfolio site, built on the `ductran-starter` template and styled with Sen 
 | 8   | Lighthouse budgets and the metrics page                               | `feat/metrics`      | ✅     |
 | 9   | Sen UI tokens, `data-theme` and Sen UI buttons, with no visual change | `feat/sen-ui`       | ✅     |
 | 10  | README, content license and this progress log                         | `docs/readme`       | ✅     |
+| 11  | The movie app case study renamed Lumi, with its live link             | `feat/lumi`         | ✅     |
 
 Each step is a pull request with green `Verify` and `Browser` checks (`Browser` from step 7), merged with rebase.
 
@@ -46,7 +47,7 @@ Each step is a pull request with green `Verify` and `Browser` checks (`Browser` 
 
 - [ ] Run `metrics:pull` after the first green CI run on `main`, so `/metrics` shows CI numbers
 - [ ] Promote the Sen UI project in the CV from `target` to verified, with its real numbers
-- [ ] Case study links for the movie app once it is live under its new name
+- [x] Case study links for the movie app once it is live under its new name (Lumi)
 
 ## Issue log
 

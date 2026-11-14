@@ -29,3 +29,6 @@ test-results/
 
 # Vercel
 .vercel/
+
+# Local-only Vietnamese README
+README.vi.md
